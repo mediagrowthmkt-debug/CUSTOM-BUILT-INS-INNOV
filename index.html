@@ -1282,7 +1282,7 @@
 
     <script>
         // Smooth scrolling for anchor links - all buttons lead to contact form
-        document.querySelectorAll('a[href^="#"], .btn-primary, .btn-secondary').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"], a.btn-primary, a.btn-secondary').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector('#contact');
@@ -1469,31 +1469,47 @@
             });
         });
 
-        // Contact Form Handling
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Contact Form Handling - Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, setting up form handler');
             
-            // Get form data
-            const formData = new FormData(this);
-            const formObject = {};
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
+            const form = document.getElementById('contactForm');
+            if (!form) {
+                console.error('Contact form not found!');
+                return;
+            }
             
-            // Show loading state
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
+            console.log('Contact form found, adding event listener');
             
-            // Simulate form processing (replace with actual form handling)
-            setTimeout(() => {
-                // Here you would normally send the data to your server
-                console.log('Form data:', formObject);
+            form.addEventListener('submit', function(e) {
+                console.log('Form submitted!');
+                e.preventDefault();
                 
-                // Redirect to thank you page
-                window.location.href = 'thank-you.html';
-            }, 1500);
+                // Get form data
+                const formData = new FormData(this);
+                const formObject = {};
+                formData.forEach((value, key) => {
+                    formObject[key] = value;
+                });
+                
+                console.log('Form data collected:', formObject);
+                
+                // Show loading state
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+                
+                console.log('Showing loading state...');
+                
+                // Simulate form processing (replace with actual form handling)
+                setTimeout(() => {
+                    console.log('Redirecting to thank you page...');
+                    
+                    // Redirect to thank you page
+                    window.location.href = 'thank-you.html';
+                }, 1500);
+            });
         });
     </script>
 </body>
