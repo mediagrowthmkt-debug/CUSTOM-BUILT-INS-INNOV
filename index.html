@@ -38,7 +38,7 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             padding: 0 20px;
         }
@@ -50,14 +50,8 @@
         }
 
         .logo img {
-            height: 40px;
+            height: 50px;
             width: auto;
-        }
-
-        .header-cta {
-            display: flex;
-            gap: 15px;
-            align-items: center;
         }
 
         .btn-primary {
@@ -108,6 +102,49 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0;
+            transform: scale(1);
+            transition: opacity 1.5s ease-in-out, transform 5s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .hero-slide.zoom-out {
+            transform: scale(1.1);
+        }
+
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6));
+            z-index: 1;
         }
 
         .video-background {
@@ -223,6 +260,61 @@
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
+        }
+
+        .benefits-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .benefits-text {
+            flex: 1;
+        }
+
+        .ceo-image-section {
+            width: 100%;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #111, #000);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        .ceo-image-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 195, 0, 0.1), rgba(230, 175, 0, 0.05));
+        }
+
+        .ceo-original-photo {
+            width: 280px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(255, 195, 0, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ceo-original-photo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(255, 195, 0, 0.5);
+        }
+
+        .ceo-section {
+            position: relative;
+            z-index: 2;
         }
 
         .benefits-list {
@@ -448,6 +540,18 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 60px;
+        }
+
+        @media (min-width: 1024px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         .testimonial {
@@ -678,11 +782,43 @@
             text-decoration: none;
             box-shadow: 0 4px 20px rgba(255, 195, 0, 0.3);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .floating-call:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 25px rgba(255, 195, 0, 0.4);
+        }
+
+        .floating-call-text {
+            position: absolute;
+            right: 70px;
+            background: #000;
+            color: #FFC300;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .floating-call-text.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .floating-call-text::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-left-color: #000;
         }
 
         /* RESPONSIVE DESIGN */
@@ -700,17 +836,33 @@
                 align-items: center;
             }
 
-            .header-cta {
-                display: none;
-            }
-
             .logo img {
-                height: 35px;
+                height: 45px;
             }
 
             .benefits-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
+            }
+
+            .benefits-content {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .benefits-text {
+                text-align: left;
+            }
+
+            .ceo-image-section {
+                height: 320px;
+                padding: 20px;
+            }
+
+            .ceo-original-photo {
+                width: 240px;
+                height: 280px;
             }
 
             .benefits-image {
@@ -743,6 +895,12 @@
 
             .video-background {
                 background-attachment: scroll;
+            }
+
+            .hero-slide {
+                background-attachment: scroll;
+                transform: scale(1) !important;
+                transition: opacity 1.5s ease-in-out, transform 3s ease-in-out;
             }
         }
 
@@ -790,20 +948,16 @@
             <div class="logo">
                 <img src="logo innov builders.jpg" alt="Innov Builders Logo">
             </div>
-            <div class="header-cta">
-                <a href="tel:+19788710597" class="btn-secondary">
-                    <i class="fas fa-phone"></i> (978) 871-0597
-                </a>
-                <a href="#contact" class="btn-primary">
-                    <i class="fas fa-calculator"></i> Free Estimate
-                </a>
-            </div>
         </div>
     </header>
 
     <!-- HERO VIDEO SECTION -->
     <section class="hero-video">
-        <div class="video-background"></div>
+        <div class="hero-slider">
+            <div class="hero-slide active" style="background-image: url('FOTOS HEADER/Living+Room+Built-Ins+_tutorial_.webp')"></div>
+            <div class="hero-slide" style="background-image: url('FOTOS HEADER/closet-cabinets-custom.jpg')"></div>
+            <div class="hero-slide" style="background-image: url('FOTOS HEADER/ugly-built-in-shelves-v0-bjfsl45b88td1.webp')"></div>
+        </div>
         <div class="hero-overlay">
             <h1 class="hero-title">Custom Built-ins That Transform Spaces</h1>
             <p class="hero-subtitle">Designed, crafted, and installed with precision and passion</p>
@@ -811,9 +965,6 @@
             <div class="hero-buttons">
                 <a href="#contact" class="btn-primary">
                     <i class="fas fa-calculator"></i> Request Free Estimate
-                </a>
-                <a href="tel:+19788710597" class="btn-secondary">
-                    <i class="fas fa-phone"></i> Call Now: (978) 871-0597
                 </a>
             </div>
         </div>
@@ -835,27 +986,31 @@
             <h2 class="section-title">Why Homeowners Choose Innov Builders</h2>
             <div class="benefits-grid">
                 <div class="benefits-content">
-                    <ul class="benefits-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Tailor-made designs that fit your space and lifestyle
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Premium materials and flawless craftsmanship
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Local team with OSHA certification and full insurance
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Projects delivered on time, with guaranteed satisfaction
-                        </li>
-                    </ul>
+                    <div class="benefits-text">
+                        <ul class="benefits-list">
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                Tailor-made designs that fit your space and lifestyle
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                Premium materials and flawless craftsmanship
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                Local team with OSHA certification and full insurance
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                Projects delivered on time, with guaranteed satisfaction
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="benefits-image">
-                    <span>Premium Custom Built-ins</span>
+                <div class="ceo-image-section">
+                    <div class="ceo-section">
+                        <img src="foto iago/Cópia de Cópia de built-in (3).png" alt="Iago Maciel - CEO & Founder" class="ceo-original-photo">
+                    </div>
                 </div>
             </div>
         </div>
@@ -868,9 +1023,9 @@
         
         <div class="portfolio-grid">
             <div class="portfolio-item">
-                <div class="before-after-slider" data-project="built-in-bench">
-                    <img src="projects/built-in-bench/before.jpg" alt="Before" class="before-image">
-                    <img src="projects/built-in-bench/after.jpg" alt="After" class="after-image">
+                <div class="before-after-slider" data-project="built-in-bench-drawers">
+                    <img src="projects/Built-in bench with drawers/after.jpeg" alt="Before" class="before-image">
+                    <img src="projects/Built-in bench with drawers/before.jpeg" alt="After" class="after-image">
                     <div class="slider-handle"></div>
                     <div class="before-after-labels">
                         <span class="before-label">BEFORE</span>
@@ -883,9 +1038,9 @@
                 </div>
             </div>
             <div class="portfolio-item">
-                <div class="before-after-slider" data-project="entertainment-center">
-                    <img src="projects/entertainment-center/before.jpg" alt="Before" class="before-image">
-                    <img src="projects/entertainment-center/after.jpg" alt="After" class="after-image">
+                <div class="before-after-slider" data-project="built-in-entertainment-center">
+                    <img src="projects/Built-in entertainment center/after.png" alt="Before" class="before-image">
+                    <img src="projects/Built-in entertainment center/before.jpg" alt="After" class="after-image">
                     <div class="slider-handle"></div>
                     <div class="before-after-labels">
                         <span class="before-label">BEFORE</span>
@@ -898,9 +1053,9 @@
                 </div>
             </div>
             <div class="portfolio-item">
-                <div class="before-after-slider" data-project="laundry-unit">
-                    <img src="projects/laundry-unit/before.jpg" alt="Before" class="before-image">
-                    <img src="projects/laundry-unit/after.jpg" alt="After" class="after-image">
+                <div class="before-after-slider" data-project="built-in-laundry-unit">
+                    <img src="projects/Built-in laundry unit/after.jpg" alt="Before" class="before-image">
+                    <img src="projects/Built-in laundry unit/before.jpg" alt="After" class="after-image">
                     <div class="slider-handle"></div>
                     <div class="before-after-labels">
                         <span class="before-label">BEFORE</span>
@@ -913,9 +1068,9 @@
                 </div>
             </div>
             <div class="portfolio-item">
-                <div class="before-after-slider" data-project="bookshelf">
-                    <img src="projects/bookshelf/before.jpg" alt="Before" class="before-image">
-                    <img src="projects/bookshelf/after.jpg" alt="After" class="after-image">
+                <div class="before-after-slider" data-project="built-in-bookshelf">
+                    <img src="projects/Built-in bookshelf/after.jpg" alt="Before" class="before-image">
+                    <img src="projects/Built-in bookshelf/before.jpg" alt="After" class="after-image">
                     <div class="slider-handle"></div>
                     <div class="before-after-labels">
                         <span class="before-label">BEFORE</span>
@@ -928,9 +1083,9 @@
                 </div>
             </div>
             <div class="portfolio-item">
-                <div class="before-after-slider" data-project="corner-cabinet">
-                    <img src="projects/corner-cabinet/before.jpg" alt="Before" class="before-image">
-                    <img src="projects/corner-cabinet/after.jpg" alt="After" class="after-image">
+                <div class="before-after-slider" data-project="built-in-corner-cabinet">
+                    <img src="projects/Built-in corner cabinet/after.jpg" alt="Before" class="before-image">
+                    <img src="projects/Built-in corner cabinet/before.jpg" alt="After" class="after-image">
                     <div class="slider-handle"></div>
                     <div class="before-after-labels">
                         <span class="before-label">BEFORE</span>
@@ -943,9 +1098,9 @@
                 </div>
             </div>
             <div class="portfolio-item">
-                <div class="before-after-slider" data-project="fireplace-shelving">
-                    <img src="projects/fireplace-shelving/before.jpg" alt="Before" class="before-image">
-                    <img src="projects/fireplace-shelving/after.jpg" alt="After" class="after-image">
+                <div class="before-after-slider" data-project="built-in-fireplace-shelving">
+                    <img src="projects/Built-in fireplace shelving/after.jpg" alt="Before" class="before-image">
+                    <img src="projects/Built-in fireplace shelving/before.jpeg" alt="After" class="after-image">
                     <div class="slider-handle"></div>
                     <div class="before-after-labels">
                         <span class="before-label">BEFORE</span>
@@ -967,18 +1122,33 @@
             <div class="testimonials-grid">
                 <div class="testimonial">
                     <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"I'm beyond impressed with the incredible work done by Iago and his team. The craftsmanship was outstanding!"</p>
-                    <p class="testimonial-author">— Lara Gonzaga</p>
+                    <p class="testimonial-text">"Innov Builders created a custom built-in that perfectly integrates our washing machine and cabinets, and the result was amazing! The space is now much more functional, with a modern and elegant look. The team was extremely meticulous with the finishing and always receptive to our ideas. Top-quality service, delivered right on time. We're very satisfied!"</p>
+                    <p class="testimonial-author">— Mariana Vale</p>
                 </div>
                 <div class="testimonial">
                     <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"Professional team, attention to detail, and excellent results. Highly recommend!"</p>
-                    <p class="testimonial-author">— Mariana Freitas</p>
+                    <p class="testimonial-text">"We had an amazing experience working with Innov Builders! The team is professional, efficient, and always attentive to our needs. They delivered our project on time, with high-quality results that exceeded our expectations. Highly recommend Innov Builders for anyone looking for reliable and skilled construction services!"</p>
+                    <p class="testimonial-author">— Samyla Schmidt</p>
                 </div>
                 <div class="testimonial">
                     <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"Top-notch carpentry work and fair pricing. Couldn't be happier!"</p>
-                    <p class="testimonial-author">— Bryan Smith</p>
+                    <p class="testimonial-text">"We replaced all the windows in our home with Innov Builders and it was the best decision we could've made! The work was fast, clean, and perfectly finished. The quality of the materials and the team's attention to detail made all the difference. Excellent service and a result that was far beyond our expectations. Highly recommend!"</p>
+                    <p class="testimonial-author">— Pedro Joas</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"We chose Innov Builders for our kitchen renovation and the result was absolutely outstanding! From the very beginning, the team showed true professionalism. Everything was completed with great attention to detail, on time, and with a flawless finish. Top-quality service! Highly recommend!"</p>
+                    <p class="testimonial-author">— Fabricio Luiz</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Great communication, very fast turnaround, and excellent quality work on my deck project. Highly recommend Iago and his team!"</p>
+                    <p class="testimonial-author">— Chihsheng Yang</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Great people and terrific job! Iago and his crew built a second level deck at my house in Marblehead, MA. They did a fantastic job on a complicated task that included suspended staircase. High quality, honest and fair. Highest recommendation!"</p>
+                    <p class="testimonial-author">— Anderson Schulz</p>
                 </div>
             </div>
         </div>
@@ -1026,7 +1196,7 @@
             <h2 class="section-title">Ready to Build Your Dream Built-ins?</h2>
             <p class="section-subtitle">Fill out the form below or call us — we'll get back to you within 24 hours.</p>
             
-            <form class="contact-form">
+            <form id="contactForm" class="contact-form">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Name *</label>
@@ -1043,11 +1213,14 @@
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="city">City (MA / NH) *</label>
-                        <select id="city" name="city" required>
-                            <option value="">Select your city</option>
-                            <option value="ma">Massachusetts</option>
-                            <option value="nh">New Hampshire</option>
+                        <label for="budget">What's your estimated budget for this project? *</label>
+                        <select id="budget" name="budget" required>
+                            <option value="">Select your budget range</option>
+                            <option value="under-5k">Under $5,000</option>
+                            <option value="5k-10k">$5,000 - $10,000</option>
+                            <option value="10k-20k">$10,000 - $20,000</option>
+                            <option value="20k-50k">$20,000 - $50,000</option>
+                            <option value="over-50k">Over $50,000</option>
                         </select>
                     </div>
                 </div>
@@ -1086,16 +1259,6 @@
         <div class="footer-content">
             <div class="footer-grid">
                 <div class="footer-section">
-                    <h3>Navigation</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#portfolio">Portfolio</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
                     <h3>Certifications</h3>
                     <ul class="footer-links">
                         <li>OSHA Certified</li>
@@ -1103,16 +1266,6 @@
                         <li>HIC License: 212869</li>
                         <li>BBB Accredited</li>
                     </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Follow Us</h3>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-pinterest"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1122,16 +1275,17 @@
     </footer>
 
     <!-- FLOATING CALL BUTTON -->
-    <a href="tel:+19788710597" class="floating-call">
+    <div class="floating-call" id="floatingCall">
         <i class="fas fa-phone"></i>
-    </a>
+        <div class="floating-call-text" id="floatingText">Talk to us right now</div>
+    </div>
 
     <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Smooth scrolling for anchor links - all buttons lead to contact form
+        document.querySelectorAll('a[href^="#"], .btn-primary, .btn-secondary').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector('#contact');
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
@@ -1141,10 +1295,23 @@
             });
         });
 
-        // Form submission
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your interest! We will contact you within 24 hours.');
+
+
+        // Floating call button functionality
+        const floatingCall = document.getElementById('floatingCall');
+        const floatingText = document.getElementById('floatingText');
+
+        // Show text after 5 seconds
+        setTimeout(() => {
+            floatingText.classList.add('show');
+        }, 5000);
+
+        // Click handler for floating button
+        floatingCall.addEventListener('click', function() {
+            document.querySelector('#contact').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         });
 
         // Header background on scroll
@@ -1175,6 +1342,34 @@
         document.querySelectorAll('.section').forEach(section => {
             observer.observe(section);
         });
+
+        // Hero Image Slider Functionality with Zoom Effect
+        function initHeroSlider() {
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+
+            function showNextSlide() {
+                // Add zoom out effect to current slide
+                slides[currentSlide].classList.add('zoom-out');
+                
+                // After zoom effect, fade out and move to next
+                setTimeout(() => {
+                    slides[currentSlide].classList.remove('active', 'zoom-out');
+                    
+                    // Move to next slide
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    
+                    // Show new slide with zoom in effect
+                    slides[currentSlide].classList.add('active');
+                }, 800); // Wait for zoom out effect
+            }
+
+            // Change slide every 5 seconds
+            setInterval(showNextSlide, 5000);
+        }
+
+        // Initialize hero slider
+        initHeroSlider();
 
         // Before/After Slider Functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -1272,6 +1467,33 @@
                 slider.addEventListener('mousedown', () => hasInteracted = true);
                 slider.addEventListener('touchstart', () => hasInteracted = true);
             });
+        });
+
+        // Contact Form Handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Simulate form processing (replace with actual form handling)
+            setTimeout(() => {
+                // Here you would normally send the data to your server
+                console.log('Form data:', formObject);
+                
+                // Redirect to thank you page
+                window.location.href = 'thank-you.html';
+            }, 1500);
         });
     </script>
 </body>
