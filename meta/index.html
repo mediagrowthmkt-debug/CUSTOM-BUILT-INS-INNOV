@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_META_PIXEL_ID'); // Substitua YOUR_META_PIXEL_ID pelo seu ID do Meta Pixel
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_META_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Built-ins Massachusetts | Innov Builders | Free Estimate</title>
@@ -1494,8 +1512,9 @@
                 
                 // Add campaign information
                 formObject.campaign_url = window.location.href;
-                formObject.page_name = 'Custom Built-ins Massachusetts';
-                formObject.campaign_name = 'Built-ins Landing Page';
+                formObject.page_name = 'Custom Built-ins Massachusetts - Meta Campaign';
+                formObject.campaign_name = 'Built-ins Landing Page - Meta Ads';
+                formObject.traffic_source = 'Meta Ads';
                 
                 console.log('Form data collected:', formObject);
                 
@@ -1506,6 +1525,16 @@
                 submitBtn.disabled = true;
                 
                 console.log('Sending data to webhook...');
+                
+                // Track Meta Pixel Lead Event
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead', {
+                        content_name: 'Built-ins Quote Request',
+                        content_category: 'Home Improvement',
+                        value: 0,
+                        currency: 'USD'
+                    });
+                }
                 
                 // Send data to webhook
                 fetch('https://hook.us2.make.com/ctp3mh229k0mi9ujiy1xcu1xh84fpa3x', {

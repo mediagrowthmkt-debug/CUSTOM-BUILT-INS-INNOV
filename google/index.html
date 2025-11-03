@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX'); // Substitua GTM-XXXXXXX pelo seu ID do Google Tag Manager
+    </script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX'); // Substitua G-XXXXXXXXXX pelo seu ID do Google Analytics
+    </script>
+    <!-- End Google Analytics -->
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Built-ins Massachusetts | Innov Builders | Free Estimate</title>
@@ -942,6 +961,11 @@
     </style>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
     <!-- STICKY HEADER -->
     <header class="sticky-header">
         <div class="header-container">
@@ -1494,8 +1518,9 @@
                 
                 // Add campaign information
                 formObject.campaign_url = window.location.href;
-                formObject.page_name = 'Custom Built-ins Massachusetts';
-                formObject.campaign_name = 'Built-ins Landing Page';
+                formObject.page_name = 'Custom Built-ins Massachusetts - Google Campaign';
+                formObject.campaign_name = 'Built-ins Landing Page - Google Ads';
+                formObject.traffic_source = 'Google Ads';
                 
                 console.log('Form data collected:', formObject);
                 
@@ -1506,6 +1531,15 @@
                 submitBtn.disabled = true;
                 
                 console.log('Sending data to webhook...');
+                
+                // Track Google Analytics Event
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'generate_lead', {
+                        'event_category': 'Form',
+                        'event_label': 'Built-ins Quote Request',
+                        'value': 0
+                    });
+                }
                 
                 // Send data to webhook
                 fetch('https://hook.us2.make.com/ctp3mh229k0mi9ujiy1xcu1xh84fpa3x', {
