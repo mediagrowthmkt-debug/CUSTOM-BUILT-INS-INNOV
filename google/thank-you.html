@@ -28,14 +28,18 @@
       gtag('js', new Date());
       gtag('config', 'AW-16940335819');
     </script>
-        <!-- Event snippet for LEAD - BUILT-INS conversion page -->
-        <script>
-            gtag('event', 'conversion', {
-                    'send_to': 'AW-16940335819/hK22CO6u8bsbEMuF5I0_',
-                    'value': 1.0,
-                    'currency': 'USD'
-            });
-        </script>
+            <!-- Event snippet for LEAD - BUILT-INS conversion page (fires after page load to ensure detection) -->
+            <script>
+                window.addEventListener('load', function(){
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'conversion', {
+                                'send_to': 'AW-16940335819/hK22CO6u8bsbEMuF5I0_',
+                                'value': 1.0,
+                                'currency': 'USD'
+                        });
+                    }
+                });
+            </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -252,6 +256,12 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    
+    <!-- Google Ads conversion fallback for users with JS disabled -->
+    <noscript>
+        <img height="1" width="1" style="display:none" alt=""
+             src="https://www.googleadservices.com/pagead/conversion/16940335819/?label=hK22CO6u8bsbEMuF5I0_&guid=ON&script=0"/>
+    </noscript>
     
     <div class="thank-you-container">
         <div class="content">
