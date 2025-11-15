@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Built-ins Massachusetts | Innov Builders | Free Estimate</title>
-    <meta name="description" content="Transform your space with custom built-ins in Massachusetts & New Hampshire. Expert craftsmanship, 11+ years experience. Free estimate. Call (978) 871-0597">
+    <meta name="description" content="Transform your space with custom built-ins in Massachusetts & New Hampshire. Expert craftsmanship, 11+ years experience. Free estimate. Call (978) 878-7977">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -1271,7 +1271,7 @@
                 <div class="contact-info-grid">
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
-                        <a href="tel:+19788710597" data-call-intent="true" style="color: inherit; text-decoration: none;">(978) 871-0597</a>
+                        <a href="tel:+19788787977" data-call-intent="true" style="color: inherit; text-decoration: none;">(978) 878-7977</a>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
@@ -1307,7 +1307,7 @@
     </footer>
 
     <!-- FLOATING CALL BUTTON (click-to-call) -->
-    <a class="floating-call" id="floatingCall" href="tel:+19788710597" aria-label="Call Innov Builders">
+    <a class="floating-call" id="floatingCall" href="tel:+19788787977" aria-label="Call Innov Builders">
         <i class="fas fa-phone"></i>
         <div class="floating-call-text" id="floatingText">Talk to us right now</div>
     </a>
@@ -1325,7 +1325,28 @@
         </div>
     </div>
 
-    <script>
+        <script>
+                // Google Ads - call conversion helper (fires on call click)
+                function gtag_report_conversion(url) {
+                    var callback = function () {
+                        if (typeof(url) != 'undefined') {
+                            window.location = url;
+                        }
+                    };
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'conversion', {
+                                'send_to': 'AW-16940335819/hSPHCIz03MAbEMuF5I0_',
+                                'value': 1.0,
+                                'currency': 'USD',
+                                'event_callback': callback
+                        });
+                        return false;
+                    } else {
+                        // Fallback when gtag is not present on this page
+                        callback();
+                        return true;
+                    }
+                }
         // Smooth scrolling for anchor links - all buttons lead to contact form
         document.querySelectorAll('a[href^="#"], a.btn-primary, a.btn-secondary').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1384,7 +1405,7 @@
                 const payload = {
                     name,
                     event: 'call_intent',
-                    phone_number: '+19788710597',
+                    phone_number: '+19788787977',
                     campaign_url: window.location.href,
                     page_name: 'Custom Built-ins Massachusetts',
                     campaign_name: 'Built-ins Landing Page'
@@ -1397,7 +1418,8 @@
                     }).catch(()=>{});
                 } catch(e) {}
                 if (pendingHref) {
-                    window.location.href = pendingHref;
+                    // Fire Google Ads conversion and then dial
+                    gtag_report_conversion(pendingHref);
                 }
                 closeModal();
             }
@@ -1405,7 +1427,7 @@
             function attachCall(el){
                 if (!el) return;
                 el.addEventListener('click', function(e){
-                    const href = el.getAttribute('href') || 'tel:+19788710597';
+                    const href = el.getAttribute('href') || 'tel:+19788787977';
                     if (href.startsWith('tel:')) {
                         e.preventDefault();
                         openModal(href);
@@ -1488,6 +1510,19 @@
 
         // Initialize hero slider
         initHeroSlider();
+
+        // Also attach conversion tracking to any direct tel: links on the page (if clicked outside modal flow)
+        (function attachDirectTelConversion(){
+            document.querySelectorAll('a[href^="tel:"]').forEach(function(el){
+                el.addEventListener('click', function(e){
+                    var href = el.getAttribute('href');
+                    if (typeof gtag_report_conversion === 'function') {
+                        e.preventDefault();
+                        gtag_report_conversion(href);
+                    }
+                });
+            });
+        })();
 
         // Before/After Slider Functionality
         document.addEventListener('DOMContentLoaded', function() {
