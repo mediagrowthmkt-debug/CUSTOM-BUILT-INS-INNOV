@@ -912,6 +912,9 @@
                 transform: scale(1) !important;
                 transition: opacity 1.5s ease-in-out, transform 3s ease-in-out;
             }
+
+            /* Push hero block below fixed header on small screens */
+            .hero-video { margin-top: 88px; }
         }
 
         @media (max-width: 480px) {
@@ -922,6 +925,9 @@
             .hero-overlay {
                 padding-top: 80px; /* approx header height + safe space */
             }
+
+            /* Extra nudge for very small screens */
+            .hero-video { margin-top: 96px; }
 
             .section {
                 padding: 60px 0;
