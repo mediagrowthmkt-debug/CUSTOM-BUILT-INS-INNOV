@@ -1275,7 +1275,7 @@
                 <div class="contact-info-grid">
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
-                        <span>(978) 871-0597</span>
+                        <a href="tel:+19788710597" style="color: inherit; text-decoration: none;">(978) 871-0597</a>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
@@ -1310,11 +1310,11 @@
         </div>
     </footer>
 
-    <!-- FLOATING CALL BUTTON -->
-    <div class="floating-call" id="floatingCall">
+    <!-- FLOATING CALL BUTTON (click-to-call) -->
+    <a class="floating-call" id="floatingCall" href="tel:+19788710597" aria-label="Call Innov Builders">
         <i class="fas fa-phone"></i>
         <div class="floating-call-text" id="floatingText">Talk to us right now</div>
-    </div>
+    </a>
 
     <script>
         // Smooth scrolling for anchor links - all buttons lead to contact form
@@ -1342,13 +1342,15 @@
             floatingText.classList.add('show');
         }, 5000);
 
-        // Click handler for floating button
-        floatingCall.addEventListener('click', function() {
-            document.querySelector('#contact').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+        // If not an anchor (tel link), scroll to contact on click
+        if (floatingCall && floatingCall.tagName !== 'A') {
+            floatingCall.addEventListener('click', function() {
+                document.querySelector('#contact').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             });
-        });
+        }
 
         // Header background on scroll
         window.addEventListener('scroll', function() {
