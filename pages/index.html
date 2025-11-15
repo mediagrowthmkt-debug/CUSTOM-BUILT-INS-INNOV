@@ -959,6 +959,18 @@
         .mb-20 { margin-bottom: 20px; }
         .mb-30 { margin-bottom: 30px; }
         .mb-40 { margin-bottom: 40px; }
+
+        /* Call Intent Modal */
+        .call-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 2000; }
+        .call-modal.show { display: flex; }
+        .call-modal .box { background: #111; border: 2px solid #FFC300; border-radius: 12px; padding: 24px; width: 90%; max-width: 420px; box-shadow: 0 10px 30px rgba(255,195,0,0.25); }
+        .call-modal h3 { color: #FFC300; margin-bottom: 12px; text-align: center; }
+        .call-modal p { color: #ccc; margin-bottom: 16px; text-align: center; }
+        .call-modal input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1b1b1b; color: #fff; margin-bottom: 16px; }
+        .call-modal .row { display: flex; gap: 12px; }
+        .call-modal .row .btn { flex: 1; text-align: center; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .call-modal .btn-call { background: #FFC300; color: #000; }
+        .call-modal .btn-cancel { background: #222; color: #fff; border: 1px solid #333; }
     </style>
 </head>
 <body>
@@ -1259,7 +1271,7 @@
                 <div class="contact-info-grid">
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
-                        <a href="tel:+19788710597" style="color: inherit; text-decoration: none;">(978) 871-0597</a>
+                        <a href="tel:+19788710597" data-call-intent="true" style="color: inherit; text-decoration: none;">(978) 871-0597</a>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
@@ -1300,6 +1312,19 @@
         <div class="floating-call-text" id="floatingText">Talk to us right now</div>
     </a>
 
+    <!-- Call Intent Modal -->
+    <div id="callModal" class="call-modal" aria-hidden="true">
+        <div class="box" role="dialog" aria-modal="true" aria-labelledby="callModalTitle">
+            <h3 id="callModalTitle">Before we call you</h3>
+            <p>Please enter your name so our team knows who is calling.</p>
+            <input type="text" id="callerName" placeholder="Your name" autocomplete="name">
+            <div class="row">
+                <button class="btn btn-cancel" id="cancelCall">Cancel</button>
+                <button class="btn btn-call" id="confirmCall">Call Now</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Smooth scrolling for anchor links - all buttons lead to contact form
         document.querySelectorAll('a[href^="#"], a.btn-primary, a.btn-secondary').forEach(anchor => {
@@ -1335,6 +1360,77 @@
                 });
             });
         }
+
+        // Call Intent Flow: prompt name, send to webhook, then dial
+        (function initCallIntent(){
+            const modal = document.getElementById('callModal');
+            const nameInput = document.getElementById('callerName');
+            const btnCancel = document.getElementById('cancelCall');
+            const btnConfirm = document.getElementById('confirmCall');
+            let pendingHref = null;
+
+            function openModal(href){
+                pendingHref = href;
+                modal.classList.add('show');
+                modal.setAttribute('aria-hidden','false');
+                setTimeout(()=> nameInput && nameInput.focus(), 0);
+            }
+            function closeModal(){
+                modal.classList.remove('show');
+                modal.setAttribute('aria-hidden','true');
+            }
+            function sendLeadAndDial(){
+                const name = (nameInput && nameInput.value || '').trim();
+                const payload = {
+                    name,
+                    event: 'call_intent',
+                    phone_number: '+19788710597',
+                    campaign_url: window.location.href,
+                    page_name: 'Custom Built-ins Massachusetts',
+                    campaign_name: 'Built-ins Landing Page'
+                };
+                try {
+                    fetch('https://hook.us2.make.com/ctp3mh229k0mi9ujiy1xcu1xh84fpa3x', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    }).catch(()=>{});
+                } catch(e) {}
+                if (pendingHref) {
+                    window.location.href = pendingHref;
+                }
+                closeModal();
+            }
+
+            function attachCall(el){
+                if (!el) return;
+                el.addEventListener('click', function(e){
+                    const href = el.getAttribute('href') || 'tel:+19788710597';
+                    if (href.startsWith('tel:')) {
+                        e.preventDefault();
+                        openModal(href);
+                    }
+                });
+            }
+
+            attachCall(document.getElementById('floatingCall'));
+            document.querySelectorAll('a[data-call-intent="true"]').forEach(attachCall);
+
+            btnCancel && btnCancel.addEventListener('click', closeModal);
+            btnConfirm && btnConfirm.addEventListener('click', function(){
+                if (!nameInput.value.trim()) { nameInput.focus(); return; }
+                sendLeadAndDial();
+            });
+            modal && modal.addEventListener('click', function(e){
+                if (e.target === modal) closeModal();
+            });
+            nameInput && nameInput.addEventListener('keydown', function(e){
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    btnConfirm && btnConfirm.click();
+                }
+            });
+        })();
 
         // Header background on scroll
         window.addEventListener('scroll', function() {
