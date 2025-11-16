@@ -466,8 +466,7 @@
         }
 
         .hero-form .form-group input,
-        .hero-form .form-group select,
-        .hero-form .form-group textarea {
+        .hero-form .form-group select {
             width: 100%;
             padding: 14px;
             border: none;
@@ -479,8 +478,7 @@
         }
 
         .hero-form .form-group input:focus,
-        .hero-form .form-group select:focus,
-        .hero-form .form-group textarea:focus {
+        .hero-form .form-group select:focus {
             outline: 2px solid #FFC300;
             outline-offset: 2px;
             background: #2a2a2a;
@@ -1507,8 +1505,8 @@
                     <input type="text" id="hero-zip" name="zip" required>
                 </div>
                 <div class="form-group">
-                    <label for="hero-room">What room is your built-in for? *</label>
-                    <select id="hero-room" name="room" required>
+                    <label for="hero-room">What room is your built-in for?</label>
+                    <select id="hero-room" name="room">
                         <option value="">Select a room</option>
                         <option value="living-room">Living room</option>
                         <option value="tv-wall">TV wall</option>
@@ -1519,10 +1517,6 @@
                         <option value="full-wall-unit">Full wall unit</option>
                         <option value="not-sure">Not sure yet</option>
                     </select>
-                </div>
-                <div class="form-group">
-                    <label for="hero-project">Tell us about your project (optional)</label>
-                    <textarea id="hero-project" name="project" placeholder="Describe your built-in project..." style="min-height: 80px; resize: vertical; font-family: inherit;"></textarea>
                 </div>
                 <button type="submit" class="btn-primary">
                     <i class="fas fa-calculator"></i> Get My Free Estimate
@@ -2339,7 +2333,6 @@
                     formObject.page_name = 'Custom Built-ins Massachusetts - Google Campaign';
                     formObject.campaign_name = 'Built-ins Landing Page - Google Ads';
                     formObject.traffic_source = 'Google Ads';
-                    formObject.form_location = 'Contact Section';
                     
                     console.log('Form data collected:', formObject);
                     
