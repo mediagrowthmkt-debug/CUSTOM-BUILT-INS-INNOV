@@ -2209,6 +2209,7 @@
                 body: JSON.stringify({
                     name: userName,
                     source: 'Ligação - Phone Call',
+                    message: `Ligação - Nome: ${userName} | Página: ${window.location.href} | Data: ${new Date().toLocaleString('pt-BR')}`,
                     timestamp: new Date().toISOString(),
                     page: window.location.href
                 })
