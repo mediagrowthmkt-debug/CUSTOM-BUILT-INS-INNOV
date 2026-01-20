@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "u1d1b7xn4w");
+    </script>
+    <!-- End Microsoft Clarity -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Innov Builders | Custom Built-ins</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: linear-gradient(135deg, #000, #111);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .thank-you-container {
+            max-width: 700px;
+            background: #111;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 195, 0, 0.3);
+            border: 2px solid #FFC300;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .thank-you-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 195, 0, 0.05), rgba(230, 175, 0, 0.02));
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: #FFC300;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .main-title {
+            color: #FFC300;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .description {
+            color: #ccc;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .next-steps {
+            background: rgba(255, 195, 0, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #FFC300;
+            margin-bottom: 40px;
+        }
+
+        .next-steps-title {
+            color: #FFC300;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .steps-list {
+            color: #fff;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .steps-list div {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .contact-info {
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .contact-title {
+            color: #FFC300;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            color: #ccc;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .contact-item i {
+            color: #FFC300;
+            font-size: 1.1rem;
+        }
+
+        .logo {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .thank-you-container {
+                padding: 40px 25px;
+                margin: 10px;
+            }
+
+            .main-title {
+                font-size: 2.2rem;
+            }
+
+            .subtitle {
+                font-size: 1.4rem;
+            }
+
+            .description {
+                font-size: 1.1rem;
+            }
+
+            .success-icon {
+                font-size: 4rem;
+            }
+
+            .contact-details {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .success-icon {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you-container">
+        <div class="content">
+            <i class="fas fa-check-circle success-icon"></i>
+            
+            <h1 class="main-title">Thank You!</h1>
+            <h2 class="subtitle">We appreciate your contact!</h2>
+            
+            <p class="description">
+                Our expert team will review your custom built-in project details and get back to you within 24 hours with a personalized consultation and free estimate.
+            </p>
+
+            <div class="next-steps">
+                <div class="next-steps-title">
+                    <i class="fas fa-clipboard-list"></i>
+                    What Happens Next:
+                </div>
+                <div class="steps-list">
+                    <div>
+                        <i class="fas fa-phone" style="color: #FFC300;"></i>
+                        <span>We'll call you within 24 hours</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-home" style="color: #FFC300;"></i>
+                        <span>Free in-home consultation & measurement</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-drafting-compass" style="color: #FFC300;"></i>
+                        <span>Custom design proposal with 3D renderings</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-calculator" style="color: #FFC300;"></i>
+                        <span>Detailed quote with transparent pricing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-title">
+                    <i class="fas fa-headset"></i>
+                    Need immediate assistance?
+                </div>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>(978) 878-7977</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contact@innovbuildersusa.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Peabody, MA</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="logo">
+                <img src="../assets/images/logo innov builders.jpg" alt="Innov Builders Logo">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-redirect after 30 seconds (optional)
+        // setTimeout(() => {
+        //     window.location.href = 'index.html';
+        // }, 30000);
+    </script>
+</body>
+</html>
