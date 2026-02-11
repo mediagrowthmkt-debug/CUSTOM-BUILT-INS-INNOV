@@ -146,7 +146,143 @@ function clearFormData() {
     }
 }
 
-// Preenche formulário com dados fictícios para teste
+// ======================
+// 5 VERSÕES DE TESTE
+// ======================
+// Alterna entre 5 versões de conteúdo a cada clique do botão "Preencher Teste"
+// Personalize para o nicho do seu cliente!
+
+let currentTestVersion = 0;
+
+const testDataVersions = [
+    // VERSÃO 1: Marble vs Granite
+    {
+        h1Title: 'Marble vs Granite: Complete Guide for Worcester Homes',
+        slug: 'marble-or-granite-guide-for-your-home-in-worcester',
+        metaDescription: 'Discover the pros and cons of marble and granite countertops. Expert comparison guide for Worcester homeowners making the right choice.',
+        category: 'Guia',
+        author: 'Protec Team',
+        primaryKeyword: 'marble vs granite',
+        secondaryKeywords: 'granite countertops, marble countertops, kitchen renovation, Worcester countertops',
+        metaTitle: 'Marble vs Granite: Which is Best for Your Home?',
+        searchIntent: 'Informacional',
+        coverImage: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200',
+        coverImageAlt: 'Beautiful granite countertop installation in modern kitchen',
+        coverImageCaption: 'Professional granite countertop installation',
+        internalImageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
+        internalImageAlt: 'Professional granite installation process in Worcester home',
+        introduction: 'Choosing between marble and granite countertops is one of the most important decisions for your Worcester home renovation. Both materials offer unique benefits and aesthetic appeal, but understanding their differences is crucial for making the right choice.',
+        contentBody: '<h2>Understanding Marble Countertops</h2><p>Marble is a classic choice known for its elegant veining and timeless beauty. It\'s perfect for homeowners who want a sophisticated look in their kitchen or bathroom.</p><h3>Advantages of Marble</h3><ul><li>Unique veining patterns</li><li>Cool surface temperature</li><li>Increases home value</li></ul><h2>Why Choose Granite</h2><p>Granite is incredibly durable and comes in hundreds of color options. It\'s the perfect choice for busy Worcester families who need a practical yet beautiful solution.</p><h3>Benefits of Granite</h3><ul><li>Extremely durable</li><li>Heat resistant</li><li>Low maintenance</li><li>Variety of colors</li></ul>',
+        conclusion: 'Both marble and granite are excellent choices for Worcester homes. The decision ultimately depends on your lifestyle, budget, and aesthetic preferences. Contact Protec Premium Granite today for a free consultation.',
+        tags: 'granite, marble, countertops, kitchen renovation, Worcester',
+        ctaTitle: 'Ready to Transform Your Kitchen?',
+        ctaText: 'Get a free consultation and quote from Worcester\'s trusted countertop experts!',
+        ctaButtonText: 'Schedule Free Consultation',
+        ctaLink: 'https://www.protecpremiumgranite.com/contact'
+    },
+    // VERSÃO 2: Kitchen Island Ideas
+    {
+        h1Title: 'Kitchen Island Ideas: Granite Countertops Guide',
+        slug: 'kitchen-island-ideas-granite-countertops-guide',
+        metaDescription: 'Transform your kitchen with stunning granite island ideas. Expert tips for choosing colors, edges, and styles for Worcester homes.',
+        category: 'Dicas',
+        author: 'Protec Team',
+        primaryKeyword: 'kitchen island granite',
+        secondaryKeywords: 'granite island, kitchen countertops, island design, countertop edges',
+        metaTitle: 'Kitchen Island Ideas with Granite Countertops',
+        searchIntent: 'Comercial',
+        coverImage: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=1200',
+        coverImageAlt: 'Modern kitchen island with granite countertop',
+        coverImageCaption: 'Elegant kitchen island with premium granite',
+        internalImageUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800',
+        internalImageAlt: 'Kitchen island edge profiles and granite colors',
+        introduction: 'A kitchen island with a stunning granite countertop can completely transform your cooking space. Whether you\'re renovating or building new, the right island design enhances functionality and adds thousands to your home value.',
+        contentBody: '<h2>Popular Kitchen Island Shapes</h2><p>The shape of your island depends on your kitchen layout and cooking needs. L-shaped islands work great for open floor plans, while rectangular islands suit galley kitchens.</p><h3>Granite Color Selection</h3><ul><li>Black Galaxy - dramatic and modern</li><li>Santa Cecilia - warm gold tones</li><li>Bianco Romano - elegant white with gray veining</li><li>Blue Pearl - unique blue sparkle</li></ul><h2>Edge Profile Options</h2><p>The edge profile adds personality to your island. Popular choices include bullnose, beveled, and ogee edges.</p>',
+        conclusion: 'Your kitchen island is the heart of your home. Let Protec Premium Granite help you design the perfect centerpiece with premium materials and expert craftsmanship.',
+        tags: 'kitchen island, granite, countertops, kitchen design, home renovation',
+        ctaTitle: 'Design Your Dream Kitchen Island',
+        ctaText: 'Our experts will help you choose the perfect granite for your island. Free in-home consultation!',
+        ctaButtonText: 'Get Free Design Consultation',
+        ctaLink: 'https://www.protecpremiumgranite.com/contact'
+    },
+    // VERSÃO 3: Quartz vs Granite
+    {
+        h1Title: 'Quartz vs Granite: Pros and Cons for 2026',
+        slug: 'quartz-vs-granite-pros-and-cons-2026',
+        metaDescription: 'Complete comparison of quartz and granite countertops. Learn which material is best for your budget, lifestyle, and design preferences.',
+        category: 'Tutorial',
+        author: 'Protec Team',
+        primaryKeyword: 'quartz vs granite',
+        secondaryKeywords: 'quartz countertops, engineered stone, natural stone, countertop comparison',
+        metaTitle: 'Quartz vs Granite: Complete 2026 Comparison',
+        searchIntent: 'Informacional',
+        coverImage: 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=1200',
+        coverImageAlt: 'Quartz and granite countertop samples side by side',
+        coverImageCaption: 'Comparing quartz and granite materials',
+        internalImageUrl: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
+        internalImageAlt: 'Modern kitchen with quartz countertop installation',
+        introduction: 'The quartz vs granite debate is one of the most common questions we hear from homeowners. Both materials are excellent choices, but they have distinct differences that may make one better suited for your specific needs.',
+        contentBody: '<h2>What is Granite?</h2><p>Granite is a natural stone quarried from the earth. Each slab is unique with natural variations in color and pattern. It\'s been a premium countertop choice for decades.</p><h2>What is Quartz?</h2><p>Quartz countertops are engineered from natural quartz crystals mixed with resins. This creates a consistent, non-porous surface with predictable patterns.</p><h3>Durability Comparison</h3><ul><li>Granite: Heat resistant, requires annual sealing</li><li>Quartz: Scratch resistant, maintenance-free</li></ul><h3>Cost Comparison</h3><ul><li>Granite: $50-100 per square foot installed</li><li>Quartz: $60-120 per square foot installed</li></ul>',
+        conclusion: 'Both quartz and granite are excellent investments for your home. Consider your lifestyle, design preferences, and budget when making your decision. Protec Premium Granite offers both options with expert installation.',
+        tags: 'quartz, granite, countertops, comparison, kitchen',
+        ctaTitle: 'Need Help Choosing?',
+        ctaText: 'Visit our showroom to see quartz and granite samples in person. Our experts will guide you to the perfect choice.',
+        ctaButtonText: 'Schedule Showroom Visit',
+        ctaLink: 'https://www.protecpremiumgranite.com/showroom'
+    },
+    // VERSÃO 4: Bathroom Vanity Countertops
+    {
+        h1Title: 'Bathroom Vanity Countertops: Best Stone Options',
+        slug: 'bathroom-vanity-countertops-best-stone-options',
+        metaDescription: 'Upgrade your bathroom with premium stone vanity countertops. Compare marble, granite, and quartz for bathroom installations.',
+        category: 'Blog',
+        author: 'Protec Team',
+        primaryKeyword: 'bathroom vanity countertops',
+        secondaryKeywords: 'bathroom granite, vanity marble, bathroom renovation, stone countertops',
+        metaTitle: 'Best Stone Countertops for Bathroom Vanities',
+        searchIntent: 'Comercial',
+        coverImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200',
+        coverImageAlt: 'Luxury bathroom with marble vanity countertop',
+        coverImageCaption: 'Elegant marble bathroom vanity',
+        internalImageUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800',
+        internalImageAlt: 'Modern bathroom vanity with granite countertop',
+        introduction: 'Your bathroom vanity is more than just a sink base—it\'s a design statement. The right stone countertop can transform your bathroom from ordinary to extraordinary while adding lasting value to your home.',
+        contentBody: '<h2>Best Stones for Bathrooms</h2><p>Unlike kitchens, bathroom countertops don\'t face heat from cooking. This opens up more material options including delicate marble that might not be suitable for kitchen use.</p><h3>Marble Vanity Tops</h3><ul><li>Luxurious, timeless elegance</li><li>Perfect for low-traffic bathrooms</li><li>Requires sealing and care</li></ul><h3>Granite Vanity Tops</h3><ul><li>Extremely durable</li><li>Wide variety of colors</li><li>Resists water and stains</li></ul><h2>Sizing Considerations</h2><p>Standard vanity countertops range from 22-25 inches deep. We custom cut every piece to fit your exact specifications.</p>',
+        conclusion: 'A premium stone vanity countertop is an investment that pays dividends in beauty and home value. Contact Protec Premium Granite for bathroom countertop installation in Worcester.',
+        tags: 'bathroom, vanity, countertops, marble, granite',
+        ctaTitle: 'Transform Your Bathroom',
+        ctaText: 'Get a free quote for your bathroom vanity countertop project. We handle everything from template to installation.',
+        ctaButtonText: 'Request Bathroom Quote',
+        ctaLink: 'https://www.protecpremiumgranite.com/contact'
+    },
+    // VERSÃO 5: How to Care for Granite
+    {
+        h1Title: 'How to Care for Granite Countertops: Pro Tips',
+        slug: 'how-to-care-for-granite-countertops-pro-tips',
+        metaDescription: 'Keep your granite countertops looking new with these expert care tips. Learn proper cleaning, sealing, and maintenance from the pros.',
+        category: 'Dicas',
+        author: 'Protec Team',
+        primaryKeyword: 'granite care tips',
+        secondaryKeywords: 'granite maintenance, clean granite, seal granite, countertop care',
+        metaTitle: 'How to Care for Granite Countertops | Pro Tips',
+        searchIntent: 'Informacional',
+        coverImage: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1200',
+        coverImageAlt: 'Cleaning granite countertop with microfiber cloth',
+        coverImageCaption: 'Proper granite cleaning technique',
+        internalImageUrl: 'https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800',
+        internalImageAlt: 'Granite sealing products and tools',
+        introduction: 'Granite countertops are one of the most durable surfaces for your kitchen, but proper care ensures they stay beautiful for decades. These professional tips will help you maintain your investment and keep your countertops looking brand new.',
+        contentBody: '<h2>Daily Cleaning Routine</h2><p>For everyday cleaning, use warm water with a few drops of dish soap. Wipe with a soft microfiber cloth and dry to prevent water spots.</p><h3>What NOT to Use</h3><ul><li>Vinegar or acidic cleaners</li><li>Bleach or ammonia</li><li>Abrasive scrubbers</li><li>Generic multipurpose cleaners</li></ul><h2>Sealing Your Granite</h2><p>Most granite should be sealed annually. To test if you need sealing, place a few drops of water on the surface. If it absorbs within 5 minutes, it\'s time to seal.</p><h3>Sealing Steps</h3><ol><li>Clean surface thoroughly</li><li>Apply sealer evenly</li><li>Wait 15-20 minutes</li><li>Wipe off excess</li><li>Allow 24 hours to cure</li></ol>',
+        conclusion: 'With proper care, your granite countertops will look stunning for 30+ years. Protec Premium Granite offers professional sealing services and care products for all our customers.',
+        tags: 'granite care, maintenance, cleaning, sealing, countertops',
+        ctaTitle: 'Need Professional Sealing?',
+        ctaText: 'Our team provides professional granite sealing and restoration services. Keep your investment protected!',
+        ctaButtonText: 'Book Sealing Service',
+        ctaLink: 'https://www.protecpremiumgranite.com/services'
+    }
+];
+
+// Preenche formulário com dados fictícios para teste (alterna entre 5 versões)
 function fillTestData() {
     // Formata data corretamente para datetime-local (YYYY-MM-DDTHH:MM)
     const now = new Date();
@@ -157,27 +293,19 @@ function fillTestData() {
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const dateTimeLocal = `${year}-${month}-${day}T${hours}:${minutes}`;
     
-    const testData = {
-        h1Title: 'Marble vs Granite: Complete Guide for Worcester Homes',
-        slug: 'marble-or-granite-guide-for-your-home-in-worcester',
-        metaDescription: 'Discover the pros and cons of marble and granite countertops. Expert comparison guide for Worcester homeowners making the right choice.',
-        category: 'Granite Countertops',
-        author: 'Protec Team',
-        datePublished: dateTimeLocal, // Formato correto: YYYY-MM-DDTHH:MM
-        coverImage: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800',
-        coverImageAlt: 'Beautiful granite countertop installation in modern kitchen',
-        introduction: 'Choosing between marble and granite countertops is one of the most important decisions for your Worcester home renovation. Both materials offer unique benefits and aesthetic appeal, but understanding their differences is crucial for making the right choice.',
-        contentBody: '<h2>Understanding Marble Countertops</h2><p>Marble is a classic choice known for its elegant veining and timeless beauty. It\'s perfect for homeowners who want a sophisticated look in their kitchen or bathroom.</p><h3>Advantages of Marble</h3><ul><li>Unique veining patterns</li><li>Cool surface temperature</li><li>Increases home value</li></ul><h2>Why Choose Granite</h2><p>Granite is incredibly durable and comes in hundreds of color options. It\'s the perfect choice for busy Worcester families who need a practical yet beautiful solution.</p><h3>Benefits of Granite</h3><ul><li>Extremely durable</li><li>Heat resistant</li><li>Low maintenance</li><li>Variety of colors</li></ul>',
-        conclusion: 'Both marble and granite are excellent choices for Worcester homes. The decision ultimately depends on your lifestyle, budget, and aesthetic preferences. Contact Protec Premium Granite today for a free consultation and let our experts help you make the perfect choice for your home.',
-        tags: 'granite countertops, marble countertops, kitchen renovation, Worcester MA, countertop installation',
-        ctaTitle: 'Ready to Transform Your Kitchen?',
-        ctaText: 'Get a free consultation and quote from Worcester\'s trusted countertop experts. We bring our mobile showroom to your home!',
-        ctaButtonText: 'Schedule Free Consultation',
-        ctaLink: 'https://www.protecpremiumgranite.com/contact'
-    };
+    // Pega versão atual e prepara próxima
+    const testData = { ...testDataVersions[currentTestVersion] };
+    testData.datePublished = dateTimeLocal;
+    
+    const versionNumber = currentTestVersion + 1;
+    
+    // Avança para próxima versão (ciclo 1-5)
+    currentTestVersion = (currentTestVersion + 1) % testDataVersions.length;
     
     // Preenche os campos
     Object.keys(testData).forEach(key => {
+        if (key === 'internalImageUrl' || key === 'internalImageAlt') return; // Trata separadamente
+        
         const field = document.getElementById(key);
         if (field) {
             field.value = testData[key];
@@ -189,27 +317,28 @@ function fillTestData() {
     // Preenche imagem interna (primeira)
     const internalImageUrl = document.querySelector('[name="internalImageUrl[]"]');
     const internalImageAlt = document.querySelector('[name="internalImageAlt[]"]');
-    if (internalImageUrl) {
-        internalImageUrl.value = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800';
+    if (internalImageUrl && testData.internalImageUrl) {
+        internalImageUrl.value = testData.internalImageUrl;
         internalImageUrl.dispatchEvent(new Event('input', { bubbles: true }));
     }
-    if (internalImageAlt) {
-        internalImageAlt.value = 'Professional granite installation process in Worcester home';
+    if (internalImageAlt && testData.internalImageAlt) {
+        internalImageAlt.value = testData.internalImageAlt;
         internalImageAlt.dispatchEvent(new Event('input', { bubbles: true }));
     }
     
-    // Feedback visual
+    // Feedback visual com número da versão
     const statusDiv = document.getElementById('autoSaveStatus');
     if (statusDiv) {
-        statusDiv.textContent = '🧪 Dados de teste preenchidos';
+        statusDiv.textContent = `🧪 Versão ${versionNumber}/5 carregada`;
         statusDiv.style.opacity = '1';
         statusDiv.style.color = '#28a745';
         setTimeout(() => {
-            statusDiv.style.opacity = '0';
+            statusDiv.style.opacity = '0.5';
+            statusDiv.style.color = '';
         }, 3000);
     }
     
-    console.log('✅ Formulário preenchido com dados de teste');
+    console.log(`✅ Formulário preenchido com dados de teste (Versão ${versionNumber}/5)`);
 }
 
 // ======================
@@ -697,7 +826,7 @@ async function handleFormSubmit(e) {
         console.log('💾 lastGeneratedHtml length:', lastGeneratedHtml.length);
         console.log('💾 lastGeneratedSlug:', lastGeneratedSlug);
         
-        // Salva o post no servidor via PHP (com fallback automático)
+        // Gera o post para download (GitHub Pages workflow)
         const result = await savePostToServer(postHtml, formData.slug);
         
         // Mostra sucesso (mesmo que tenha sido download)
@@ -712,62 +841,46 @@ async function handleFormSubmit(e) {
 }
 
 async function savePostToServer(html, slug) {
-    try {
-        console.log('💾 Salvando post no servidor...', slug);
+    // Verifica se há token GitHub configurado
+    const githubToken = localStorage.getItem('github_token');
+    
+    if (githubToken) {
+        // ✅ Token configurado - publica automaticamente no GitHub
+        console.log('🚀 Token GitHub encontrado! Publicando automaticamente...');
         
-        // Tenta método 1: POST com FormData (padrão)
-        console.log('📤 Tentativa 1: POST com FormData');
-        const formData = new FormData();
-        formData.append('html', html);
-        formData.append('slug', slug);
-        
-        const response = await fetch('save-post.php', {
-            method: 'POST',
-            body: formData
-        });
-        
-        console.log('📡 Status da resposta:', response.status);
-        console.log('📋 Content-Type:', response.headers.get('content-type'));
-        
-        // Se for 405 ou qualquer erro 4xx/5xx, vai direto para download
-        if (response.status === 405 || response.status >= 400) {
-            console.warn(`⚠️ Servidor retornou ${response.status}. Usando download...`);
-            return savePostAsDownload(html, slug);
-        }
-        
-        // Pega o texto da resposta primeiro
-        const responseText = await response.text();
-        console.log('📄 Resposta do servidor (primeiros 200 chars):', responseText.substring(0, 200));
-        
-        // Tenta parsear como JSON
-        let result;
         try {
-            result = JSON.parse(responseText);
-        } catch (jsonError) {
-            console.error('❌ Resposta não é JSON válido:', responseText.substring(0, 500));
-            console.warn('⚠️ Fallback para download devido a resposta inválida');
-            return savePostAsDownload(html, slug);
+            const publisher = window.initGitHubPublisher();
+            
+            if (publisher) {
+                console.log('📤 Enviando post para GitHub /posts/...');
+                await publisher.savePost(slug, html);
+                const publicUrl = publisher.getPublicUrl(slug);
+                
+                console.log('✅ Post publicado com sucesso!');
+                console.log('🔗 URL:', publicUrl);
+                
+                return {
+                    success: true,
+                    method: 'github-api',
+                    filename: slug + '.html',
+                    url: publicUrl,
+                    message: '✅ Post publicado automaticamente no GitHub!'
+                };
+            }
+        } catch (error) {
+            console.error('❌ Erro ao publicar no GitHub:', error);
+            console.warn('⚠️ Fallback para download manual...');
+            // Continua para download manual como fallback
         }
-        
-        if (!response.ok) {
-            console.warn('⚠️ Response não OK, fazendo download');
-            return savePostAsDownload(html, slug);
-        }
-        
-        console.log('✅ Post salvo com sucesso no servidor:', result);
-        
-        return result;
-    } catch (error) {
-        console.error('❌ Erro ao salvar post:', error);
-        
-        // Fallback: salvar como download - SEMPRE funciona
-        console.warn('⚠️ Fallback: Salvando como download devido a erro');
-        return savePostAsDownload(html, slug);
     }
+    
+    // ❌ Sem token ou erro - usa download manual
+    console.log('📥 Preparando post para download manual...');
+    return savePostAsDownload(html, slug);
 }
 
 function savePostAsDownload(html, slug) {
-    console.log('⚠️ Servidor indisponível - download será manual via botão');
+    console.log('📥 Preparando download do post...');
     console.log('📏 Tamanho do HTML:', html.length, 'caracteres');
     
     if (!html || html.trim().length === 0) {
@@ -775,14 +888,14 @@ function savePostAsDownload(html, slug) {
         throw new Error('HTML está vazio');
     }
     
-    // NÃO faz download automático - apenas retorna informação
-    // O download será feito manualmente pelo botão no modal
+    // Download será feito manualmente pelo botão no modal
+    // Depois, o arquivo deve ser commitado no GitHub
     
     return {
         success: true,
         method: 'download',
         filename: slug + '.html',
-        message: '⚠️ Post NÃO foi salvo no servidor. Use o botão "📥 Baixar HTML Completo" no modal para fazer o download.'
+        message: '✅ Post gerado! Use o botão "📥 Baixar HTML" para baixar e depois faça commit no GitHub.'
     };
 }
 
@@ -1088,7 +1201,7 @@ function showSuccess(slug, result) {
     const modal = document.getElementById('successModal');
     const pathElement = document.getElementById('postPath');
     
-    // Verifica se foi salvo no servidor ou como download
+    // GitHub Pages workflow - mostra onde o arquivo deve ser salvo
     const postPath = `posts/${slug}.html`;
     pathElement.textContent = postPath;
     
@@ -1105,13 +1218,24 @@ function showSuccess(slug, result) {
         modal.querySelector('.modal-content').appendChild(messageElement);
     }
     
-    if (result && result.method === 'download') {
-        messageElement.innerHTML = '⚠️ <strong>Servidor indisponível!</strong><br>Clique no botão abaixo para baixar o HTML manualmente.';
+    if (result && result.method === 'github-api') {
+        // ✅ Publicado automaticamente via GitHub API
+        messageElement.innerHTML = '🚀 <strong>Post publicado automaticamente no GitHub!</strong><br>O post já está online em <code>/posts/</code>. Aguarde ~1 minuto para o GitHub Pages atualizar.';
+        messageElement.style.backgroundColor = '#d4edda';
+        messageElement.style.color = '#155724';
+        messageElement.style.fontWeight = 'bold';
+        
+        // Se tiver URL, mostra
+        if (result.url) {
+            messageElement.innerHTML += `<br><br>🔗 <a href="${result.url}" target="_blank" style="color: #155724;">${result.url}</a>`;
+        }
+    } else if (result && result.method === 'download') {
+        messageElement.innerHTML = '✅ <strong>Post gerado com sucesso!</strong><br>Baixe o HTML e faça commit na pasta <code>posts/</code> do GitHub.';
         messageElement.style.backgroundColor = '#fff3cd';
         messageElement.style.color = '#856404';
         messageElement.style.fontWeight = 'bold';
     } else {
-        messageElement.textContent = '✅ Post salvo com sucesso no servidor!';
+        messageElement.textContent = '✅ Post gerado com sucesso!';
         messageElement.style.backgroundColor = '#d4edda';
         messageElement.style.color = '#155724';
     }
@@ -1330,88 +1454,6 @@ testTokenBtn?.addEventListener('click', async () => {
         tokenStatus.className = 'error';
     }
 });
-
-// ======================
-// PUBLICAÇÃO AUTOMÁTICA
-// ======================
-
-// Modificar o evento de submit do formulário
-const originalSubmitHandler = document.getElementById('blogForm')?.onsubmit;
-
-document.getElementById('blogForm')?.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Coletar dados do formulário
-    const formData = new FormData(this);
-    const slug = document.getElementById('slug').value || generateSlug(document.getElementById('h1Title').value);
-    
-    // Gerar HTML do post (usando função existente)
-    const postHtml = generatePostHTML(formData);
-    
-    // Verificar se tem token configurado
-    const hasToken = localStorage.getItem('github_token');
-    
-    if (hasToken) {
-        // Publicar automaticamente no GitHub
-        try {
-            const loadingModal = document.createElement('div');
-            loadingModal.className = 'modal';
-            loadingModal.style.display = 'flex';
-            loadingModal.innerHTML = `
-                <div class="modal-content">
-                    <h2>🚀 Publicando no GitHub...</h2>
-                    <p>Aguarde enquanto seu post é enviado para blog.protecpremiumgranite.com</p>
-                </div>
-            `;
-            document.body.appendChild(loadingModal);
-            
-            const url = await window.publishPost(slug, postHtml);
-            
-            loadingModal.remove();
-            
-            // Mostrar modal de sucesso com URL
-            document.getElementById('postPath').textContent = url;
-            document.getElementById('successModal').style.display = 'flex';
-            
-            // Configurar botão para abrir
-            document.getElementById('openPost').onclick = () => {
-                window.open(url, '_blank');
-            };
-            
-        } catch (error) {
-            alert('Erro ao publicar no GitHub: ' + error.message + '\n\nO post foi gerado localmente. Você pode salvá-lo manualmente.');
-            console.error('Erro:', error);
-            
-            // Fallback: baixar HTML
-            downloadPost(postHtml, slug);
-        }
-    } else {
-        // Sem token: baixar HTML (comportamento antigo)
-        downloadPost(postHtml, slug);
-        alert('💡 Dica: Configure o GitHub Token para publicar automaticamente!\nClique em "⚙️ Configurar GitHub" no topo da página.');
-    }
-});
-
-// Função para baixar post localmente
-function downloadPost(html, slug) {
-    const blob = new Blob([html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${slug}.html`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-// Função para gerar HTML do post (usar a que já existe no código)
-function generatePostHTML(formData) {
-    // Essa função já deve existir no código - apenas referenciar
-    // Retorna o HTML completo do post
-    // TODO: Integrar com a função existente de geração de HTML
-    return ''; // Placeholder
-}
 
 // ======================
 // EXPORT FUNCTIONS

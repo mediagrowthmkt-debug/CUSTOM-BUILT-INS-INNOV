@@ -147,11 +147,11 @@ O formulário está dividido em **9 blocos** para facilitar:
 2. Clique em **"✨ Gerar Post"** para criar o arquivo HTML
 3. O post será baixado automaticamente como `seu-slug.html`
 
-### 4️⃣ Publicar o Post
+### 4️⃣ Publicar o Post (GitHub Pages)
 
 1. Mova o arquivo gerado para a pasta `posts/`
-2. Faça upload para seu servidor
-3. O post estará acessível em: `seusite.com/blog/seu-slug`
+2. Faça commit e push para o GitHub
+3. O post estará acessível em: `seusite.github.io/posts/seu-slug.html`
 
 ---
 

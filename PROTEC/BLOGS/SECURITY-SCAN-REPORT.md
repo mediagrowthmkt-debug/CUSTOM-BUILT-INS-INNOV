@@ -1,14 +1,15 @@
 # 🔒 Relatório de Segurança Snyk - Protec Blog
 **Data:** 9 de janeiro de 2026  
-**Scan Completo:** ✅ Realizado
+**Scan Completo:** ✅ Realizado  
+**Arquitetura:** GitHub Pages (Static Site)
 
 ---
 
 ## 📊 Resumo das Vulnerabilidades
 
-**Total de Issues:** 7  
+**Total de Issues:** 4  
 - 🔴 **Alta Severidade:** 1
-- 🟠 **Média Severidade:** 6
+- 🟠 **Média Severidade:** 3
 
 ---
 
@@ -47,27 +48,6 @@
 - **Descrição:** Dados de recurso remoto não sanitizados
 - **Impacto:** XSS através de dados da API do GitHub
 
-### 5. Origin Validation Error - `/hostinger-upload.php`
-- **Severidade:** 🟠 Medium
-- **CWE:** CWE-942, CWE-346
-- **Linha:** 13, coluna 1
-- **Descrição:** Access-Control-Allow-Origin definido como "*"
-- **Impacto:** Qualquer site pode fazer requisições CORS
-
-### 6. Origin Validation Error - `/save-post.php`
-- **Severidade:** 🟠 Medium
-- **CWE:** CWE-942, CWE-346
-- **Linha:** 12, coluna 1
-- **Descrição:** Access-Control-Allow-Origin definido como "*"
-- **Impacto:** Qualquer site pode fazer requisições CORS
-
-### 7. Origin Validation Error - `/upload.php`
-- **Severidade:** 🟠 Medium
-- **CWE:** CWE-942, CWE-346
-- **Linha:** 9, coluna 1
-- **Descrição:** Access-Control-Allow-Origin definido como "*"
-- **Impacto:** Qualquer site pode fazer requisições CORS
-
 ---
 
 ## 🛡️ Recomendações de Correção
@@ -83,23 +63,6 @@ element.textContent = userInput; // ou sanitize com DOMPurify
 
 **Biblioteca recomendada:** [DOMPurify](https://github.com/cure53/DOMPurify)
 
-### Para CORS (Issues 5-7):
-```php
-// ❌ ANTES (Inseguro)
-header('Access-Control-Allow-Origin: *');
-
-// ✅ DEPOIS (Seguro)
-$allowed_origins = [
-    'https://blog.protecpremiumgranite.com',
-    'https://protecpremiumgranite.com'
-];
-
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if (in_array($origin, $allowed_origins)) {
-    header("Access-Control-Allow-Origin: $origin");
-}
-```
-
 ---
 
 ## 🎯 Ações Prioritárias
@@ -110,31 +73,34 @@ if (in_array($origin, $allowed_origins)) {
 ### Curto Prazo (Média Severidade):
 2. ✅ **form-script.js (linha 666):** Implementar DOMPurify
 3. ✅ **index.html e posts/index.html:** Validar dados da API GitHub
-4. ✅ **CORS Headers nos PHPs:** Restringir origens permitidas
 
 ---
 
 ## 📝 Notas Adicionais
 
 ### Contexto do Projeto:
-- Este é um sistema de blog com **acesso administrativo**
-- O formulário de criação agora está em URL obscura (`/postin`)
-- Ainda assim, as vulnerabilidades XSS e CORS precisam ser corrigidas
+- Este é um sistema de blog **estático hospedado no GitHub Pages**
+- O formulário de criação está em URL obscura (`/postin`)
+- Não há backend PHP - tudo é processado no cliente
+
+### Arquitetura Atual:
+- ✅ **GitHub Pages:** Hospedagem estática segura
+- ✅ **Sem PHP/Backend:** Menos superfície de ataque
+- ✅ **Download manual:** Posts são baixados e commitados via Git
 
 ### Mitigação Temporária:
-- ✅ URL `/postin` agora obscurecida (segurança por obscuridade)
+- ✅ URL `/postin` obscurecida (segurança por obscuridade)
 - ⚠️ Ainda vulnerável se URL for descoberta
-- 🔒 **Recomendação:** Adicionar autenticação real ao `/postin`
+- 🔒 **Recomendação:** Considerar autenticação via GitHub OAuth
 
 ---
 
 ## ✅ Próximos Passos
 
 1. **Implementar sanitização de inputs** em todos os arquivos JavaScript
-2. **Restringir CORS headers** nos arquivos PHP
-3. **Adicionar autenticação** ao formulário `/postin`
-4. **Re-escanear com Snyk** após correções
-5. **Monitorar logs** de acesso ao `/postin`
+2. **Adicionar autenticação** ao formulário `/postin` (opcional)
+3. **Re-escanear com Snyk** após correções
+4. **Monitorar logs** de acesso ao `/postin`
 
 ---
 
