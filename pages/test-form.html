@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #111;
+            color: #fff;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #FFC300;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #222;
+            color: #fff;
+        }
+        button {
+            background: #FFC300;
+            color: #000;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Form Test</h1>
+    
+    <form id="testForm">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone *</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget *</label>
+                <select id="budget" name="budget" required>
+                    <option value="">Select budget</option>
+                    <option value="under-5k">Under $5,000</option>
+                    <option value="5k-10k">$5,000 - $10,000</option>
+                    <option value="10k-20k">$10,000 - $20,000</option>
+                    <option value="20k-50k">$20,000 - $50,000</option>
+                    <option value="over-50k">Over $50,000</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="project">Project Description</label>
+            <textarea id="project" name="project" placeholder="Describe your project..."></textarea>
+        </div>
+        <button type="submit">Submit Test</button>
+    </form>
+
+    <div id="status" style="margin-top: 20px; color: #FFC300;"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Test form DOM loaded');
+            
+            const form = document.getElementById('testForm');
+            const status = document.getElementById('status');
+            
+            if (!form) {
+                console.error('Test form not found!');
+                status.innerHTML = 'ERROR: Form not found!';
+                return;
+            }
+            
+            console.log('Test form found, adding event listener');
+            status.innerHTML = 'Form ready for testing...';
+            
+            form.addEventListener('submit', function(e) {
+                console.log('Test form submitted!');
+                e.preventDefault();
+                
+                status.innerHTML = 'Form submitted! Processing...';
+                
+                // Get form data
+                const formData = new FormData(this);
+                const formObject = {};
+                formData.forEach((value, key) => {
+                    formObject[key] = value;
+                });
+                
+                console.log('Test form data:', formObject);
+                
+                // Show loading
+                const submitBtn = this.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = 'Redirecting...';
+                submitBtn.disabled = true;
+                
+                // Test redirect
+                setTimeout(() => {
+                    console.log('Redirecting to thank you page...');
+                    status.innerHTML = 'Redirecting now...';
+                    window.location.href = 'thank-you.html';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
