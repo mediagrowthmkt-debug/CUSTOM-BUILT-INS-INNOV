@@ -1,0 +1,109 @@
+import {
+    _ as l,
+    d as m,
+    a as g,
+    o as u
+} from "./_plugin-vue_export-helper.CyGxHC9m.js";
+import {
+    al as p
+} from "./siteModulesConstants.L0lsV6U7.js";
+import {
+    e as f,
+    g as h,
+    a as d,
+    h as w,
+    c as C,
+    i as _,
+    j as c
+} from "./googleTagManager.B8si0OcN.js";
+const x = [".zyrosite.space", ".zyrosite.com"],
+    I = ({
+        domain: e,
+        pageNoindex: t
+    }) => {
+        const o = window.origin.includes("https://latest-user-app.zyro.com"),
+            n = x.some(r => window.origin.includes(r)),
+            a = p.some(r => window.origin.includes(r)),
+            i = !!t || (n || a) && !0;
+        return {
+            shouldRedirectToCanonical: e && e.toLowerCase() !== window.location.hostname.toLowerCase() && !n && !a && !0 && !f() && !o,
+            noindex: i
+        }
+    },
+    N = m({
+        props: {
+            pageNoindex: {
+                type: Boolean,
+                default: !1
+            },
+            domain: {
+                type: String,
+                default: ""
+            },
+            canonicalUrl: {
+                type: String,
+                default: ""
+            },
+            siteMeta: {
+                type: Object,
+                default: null
+            }
+        },
+        setup(e) {
+            const {
+                shouldRedirectToCanonical: t,
+                noindex: o
+            } = I({
+                domain: e.domain,
+                pageNoindex: e.pageNoindex
+            });
+            if (e.siteMeta) {
+                const n = h(window.location.hostname),
+                    a = d(`z-cookies-consent-${n}`) !== "0";
+                if (w({
+                        siteMeta: e.siteMeta,
+                        areCookiesAllowed: a
+                    }), e.siteMeta.googleAdsIds && e.siteMeta.googleAdsIds.length) {
+                    const i = "last_purchase",
+                        s = d(i);
+                    s && (C("purchase", JSON.parse(s)), _(i))
+                }
+            }
+            return !e.pageNoindex && o && c({
+                type: "element",
+                tagName: "meta",
+                properties: {
+                    name: "robots",
+                    content: "noindex"
+                }
+            }), t && c({
+                type: "element",
+                tagName: "meta",
+                properties: {
+                    "http-equiv": "refresh",
+                    content: `0; url=${e.canonicalUrl}`
+                }
+            }), c({
+                type: "element",
+                tagName: "meta",
+                properties: {
+                    name: "generator",
+                    content: "Hostinger Website builder"
+                }
+            }), {
+                shouldRedirectToCanonical: t,
+                noindex: o
+            }
+        }
+    });
+
+function S(e, t, o, n, a, i) {
+    return u(), g("div")
+}
+const M = l(N, [
+    ["render", S]
+]);
+export {
+    M as
+    default
+};
